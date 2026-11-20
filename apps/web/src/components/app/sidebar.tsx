@@ -42,24 +42,24 @@ const NAV_ITEMS: {
 	/** Warna ikon saat sidebar dikecilkan (non-aktif). */
 	collapsedColor: string;
 }[] = [
-	{ to: '/app', labelKey: 'nav.dashboard', icon: LayoutDashboard, end: true, permission: 'dasbor', collapsedColor: 'text-yellow-500' },
-	{ to: '/app/penjualan', labelKey: 'nav.penjualan', icon: ShoppingCart, end: false, permission: 'penjualan', collapsedColor: 'text-blue-500' },
-	{ to: '/app/pembelian', labelKey: 'nav.pembelian', icon: Truck, end: false, permission: 'pembelian', collapsedColor: 'text-purple-500' },
-	{ to: '/app/kas-bank', labelKey: 'nav.kas_bank', icon: Landmark, end: false, permission: 'kas_bank', collapsedColor: 'text-orange-500' },
-	{ to: '/app/aset', labelKey: 'nav.aset', icon: Boxes, end: false, permission: 'aset', collapsedColor: 'text-yellow-500' },
-	{ to: '/app/biaya', labelKey: 'nav.biaya', icon: Receipt, end: false, permission: 'biaya', collapsedColor: 'text-red-500' },
-	{ to: '/app/kontak', labelKey: 'nav.kontak', icon: Users, end: false, permission: 'kontak', collapsedColor: 'text-blue-700' },
-	{ to: '/app/produk', labelKey: 'nav.produk', icon: Package, end: false, permission: 'produk', collapsedColor: 'text-sky-400' },
-	{ to: '/app/akun', labelKey: 'nav.akun', icon: BookOpen, end: false, permission: 'akun', collapsedColor: 'text-teal-500' },
-	{ to: '/app/jurnal', labelKey: 'nav.jurnal', icon: Wallet, end: false, permission: 'jurnal', collapsedColor: 'text-cyan-500' },
-	{ to: '/app/laporan', labelKey: 'nav.laporan', icon: FileBarChart, end: false, permission: 'laporan', collapsedColor: 'text-indigo-500' },
-	{ to: '/app/payroll', labelKey: 'nav.payroll', icon: CircleDollarSign, end: false, permission: 'payroll', collapsedColor: 'text-pink-500' },
-	{ to: '/app/karyawan', labelKey: 'nav.karyawan', icon: Users, end: false, permission: 'karyawan', karyawanOnly: true, collapsedColor: 'text-rose-500' },
-	{ to: '/app/pajak', labelKey: 'nav.pajak', icon: Percent, end: false, permission: 'pajak', collapsedColor: 'text-amber-500' },
-	{ to: '/app/pengaturan', labelKey: 'nav.pengaturan', icon: Settings, end: false, permission: 'pengaturan', collapsedColor: 'text-slate-500' },
-	{ to: '/app/pos', labelKey: 'nav.pos', icon: Store, end: false, permission: 'penjualan', collapsedColor: 'text-sky-500' },
-	{ to: '/app/chat', labelKey: 'nav.chat', icon: MessageCircle, end: false, permission: 'chat', collapsedColor: 'text-fuchsia-500' },
-];
+		{ to: '/app', labelKey: 'nav.dashboard', icon: LayoutDashboard, end: true, permission: 'dasbor', collapsedColor: 'text-yellow-500' },
+		{ to: '/app/penjualan', labelKey: 'nav.penjualan', icon: ShoppingCart, end: false, permission: 'penjualan', collapsedColor: 'text-blue-500' },
+		{ to: '/app/pembelian', labelKey: 'nav.pembelian', icon: Truck, end: false, permission: 'pembelian', collapsedColor: 'text-purple-500' },
+		{ to: '/app/kas-bank', labelKey: 'nav.kas_bank', icon: Landmark, end: false, permission: 'kas_bank', collapsedColor: 'text-orange-500' },
+		{ to: '/app/aset', labelKey: 'nav.aset', icon: Boxes, end: false, permission: 'aset', collapsedColor: 'text-yellow-500' },
+		{ to: '/app/biaya', labelKey: 'nav.biaya', icon: Receipt, end: false, permission: 'biaya', collapsedColor: 'text-red-500' },
+		{ to: '/app/kontak', labelKey: 'nav.kontak', icon: Users, end: false, permission: 'kontak', collapsedColor: 'text-blue-700' },
+		{ to: '/app/produk', labelKey: 'nav.produk', icon: Package, end: false, permission: 'produk', collapsedColor: 'text-sky-400' },
+		{ to: '/app/akun', labelKey: 'nav.akun', icon: BookOpen, end: false, permission: 'akun', collapsedColor: 'text-teal-500' },
+		{ to: '/app/jurnal', labelKey: 'nav.jurnal', icon: Wallet, end: false, permission: 'jurnal', collapsedColor: 'text-cyan-500' },
+		{ to: '/app/laporan', labelKey: 'nav.laporan', icon: FileBarChart, end: false, permission: 'laporan', collapsedColor: 'text-indigo-500' },
+		{ to: '/app/payroll', labelKey: 'nav.payroll', icon: CircleDollarSign, end: false, permission: 'payroll', collapsedColor: 'text-pink-500' },
+		{ to: '/app/karyawan', labelKey: 'nav.karyawan', icon: Users, end: false, permission: 'karyawan', karyawanOnly: true, collapsedColor: 'text-rose-500' },
+		{ to: '/app/pajak', labelKey: 'nav.pajak', icon: Percent, end: false, permission: 'pajak', collapsedColor: 'text-amber-500' },
+		{ to: '/app/pengaturan', labelKey: 'nav.pengaturan', icon: Settings, end: false, permission: 'pengaturan', collapsedColor: 'text-slate-500' },
+		{ to: '/app/pos', labelKey: 'nav.pos', icon: Store, end: false, permission: 'penjualan', collapsedColor: 'text-sky-500' },
+		{ to: '/app/chat', labelKey: 'nav.chat', icon: MessageCircle, end: false, permission: 'chat', collapsedColor: 'text-fuchsia-500' },
+	];
 
 interface AppSidebarProps {
 	companies: Company[];
@@ -273,43 +273,48 @@ export function AppSidebar({
 				{visibleItems.map(item => {
 					const label = t(item.labelKey);
 					return (
-					<NavLink
-						key={item.to}
-						to={item.to}
-						end={item.end}
-						aria-label={label}
-						className={({ isActive }) =>
-							cn(
-								'group/nav relative flex items-center gap-2.5 whitespace-nowrap rounded-xl py-2.5 text-sm font-semibold transition-colors',
-								collapsed ? 'size-11 justify-center px-0' : 'px-3',
-								isActive
-									? 'bg-emerald-50 ring-2 ring-emerald-400'
-									: 'hover:bg-secondary',
-							)
-						}
-					>
-						{({ isActive }) => (
-							<>
-								<item.icon
-									className={cn(
-										'size-4 shrink-0',
-										collapsed && !isActive ? item.collapsedColor : undefined,
-									)}
-									strokeWidth={2}
-								/>
-								<span className={collapsed ? 'sr-only' : undefined}>{label}</span>
-								{collapsed ? (
-									<span
-										role="tooltip"
-										className="pointer-events-none fixed z-[9999] ml-3 hidden -translate-y-1/2 whitespace-nowrap rounded-lg bg-purple-700 px-3 py-1.5 text-xs font-semibold text-white shadow-lg [@media(hover:hover)]:group-hover/nav:block"
-										style={{ left: '4.75rem' }}
-									>
-										{label}
-									</span>
-								) : null}
-							</>
-						)}
-					</NavLink>
+						<NavLink
+							key={item.to}
+							to={item.to}
+							end={item.end}
+							aria-label={label}
+							className={({ isActive }) =>
+								cn(
+									'group/nav relative flex items-center gap-2.5 whitespace-nowrap rounded-xl py-2.5 text-sm font-semibold transition-colors',
+									collapsed ? 'size-11 justify-center px-0' : 'px-3',
+									isActive
+										? 'bg-emerald-50 ring-2 ring-emerald-400'
+										: 'hover:bg-secondary',
+								)
+							}
+						>
+							{({ isActive }) => (
+								<>
+									<item.icon
+										className={cn(
+											'size-4 shrink-0',
+											collapsed && !isActive ? item.collapsedColor : undefined,
+										)}
+										strokeWidth={2}
+									/>
+									<span className={collapsed ? 'sr-only' : undefined}>{label}</span>
+									{collapsed ? (
+										<span
+											role="tooltip"
+											className={cn(
+												'pointer-events-none absolute left-full top-1/2 z-50 ml-3 -translate-y-1/2',
+												'hidden whitespace-nowrap rounded-lg px-3 py-1.5 text-xs font-medium tracking-wide shadow-md transition-all duration-150',
+												'bg-slate-900 text-white dark:bg-slate-100 dark:text-slate-900',
+												'[@media(hover:hover)]:group-hover/nav:block [@media(hover:hover)]:group-focus-visible/nav:block',
+											)}
+										>
+											{label}
+											<span className="absolute -left-1 top-1/2 -translate-y-1/2 border-y-4 border-r-4 border-y-transparent border-r-slate-900 dark:border-r-slate-100" />
+										</span>
+									) : null}
+								</>
+							)}
+						</NavLink>
 					);
 				})}
 			</nav>
@@ -336,9 +341,15 @@ export function AppSidebar({
 						{collapsed ? (
 							<span
 								role="tooltip"
-								className="pointer-events-none absolute left-full top-1/2 z-50 ml-2 hidden -translate-y-1/2 whitespace-nowrap rounded-lg bg-purple-700 px-2.5 py-1.5 text-xs font-semibold text-background shadow-soft-sm [@media(hover:hover)]:group-hover/mgmt:block [@media(hover:hover)]:group-focus-visible/mgmt:block"
+								className={cn(
+									'pointer-events-none absolute left-full top-1/2 z-50 ml-3 -translate-y-1/2',
+									'hidden whitespace-nowrap rounded-lg px-3 py-1.5 text-xs font-medium tracking-wide shadow-md transition-all duration-150',
+									'bg-slate-900 text-white dark:bg-slate-100 dark:text-slate-900',
+									'[@media(hover:hover)]:group-hover/mgmt:block [@media(hover:hover)]:group-focus-visible/mgmt:block',
+								)}
 							>
 								{t('nav.management')}
+								<span className="absolute -left-1 top-1/2 -translate-y-1/2 border-y-4 border-r-4 border-y-transparent border-r-slate-900 dark:border-r-slate-100" />
 							</span>
 						) : null}
 					</button>
