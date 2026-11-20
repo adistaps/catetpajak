@@ -266,7 +266,7 @@ export function AppSidebar({
 
 			<nav
 				className={cn(
-					'flex gap-1 overflow-x-auto px-3 pb-3 md:flex-1 md:flex-col md:overflow-y-auto md:overflow-x-hidden [scrollbar-width:none] [&::-webkit-scrollbar]:hidden',
+					'flex gap-1 overflow-x-auto px-3 pb-3 md:flex-1 md:flex-col md:overflow-y-auto md:overflow-x-visible [scrollbar-width:none] [&::-webkit-scrollbar]:hidden',
 					collapsed ? 'md:items-center md:px-2' : 'md:px-3',
 				)}
 			>
@@ -301,7 +301,8 @@ export function AppSidebar({
 								{collapsed ? (
 									<span
 										role="tooltip"
-										className="pointer-events-none absolute left-full top-1/2 z-50 ml-2 hidden -translate-y-1/2 whitespace-nowrap rounded-lg bg-purple-700 px-2.5 py-1.5 text-xs font-semibold text-background shadow-soft-sm [@media(hover:hover)]:group-hover/nav:block [@media(hover:hover)]:group-focus-visible/nav:block"
+										className="pointer-events-none fixed z-[9999] ml-3 hidden -translate-y-1/2 whitespace-nowrap rounded-lg bg-purple-700 px-3 py-1.5 text-xs font-semibold text-white shadow-lg [@media(hover:hover)]:group-hover/nav:block"
+										style={{ left: '4.75rem' }}
 									>
 										{label}
 									</span>
