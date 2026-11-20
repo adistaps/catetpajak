@@ -27,7 +27,7 @@ process.env.NODE_ENV ??= 'production';
 
 const isDevelopment = process.env.NODE_ENV === 'development';
 const port = Number(process.env.PORT ?? 3000);
-const host = process.env.HOST ?? '::';
+const host = process.env.HOST ?? '0.0.0.0';
 const appDirectory = path.dirname(fileURLToPath(import.meta.url));
 const buildDirectory = path.resolve(appDirectory, '../../dist/apps/web');
 const serverAppEntry = path.join(appDirectory, 'server/app.ts');
