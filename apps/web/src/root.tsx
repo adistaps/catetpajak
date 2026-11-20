@@ -80,8 +80,8 @@ export function Layout({ children }: { children: React.ReactNode }) {
 				<Links />
 				<HorizonsPreviewScripts />
 			</head>
-			<body className="h-dvh overflow-hidden bg-background">
-				<div id="root" className="h-full">{children}</div>
+			<body className="min-h-dvh bg-background text-foreground">
+				<div id="root">{children}</div>
 				<CookieBanner />
 				<ScrollRestoration />
 				<Scripts />
