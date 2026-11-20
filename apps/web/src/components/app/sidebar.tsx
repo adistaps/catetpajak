@@ -42,24 +42,24 @@ const NAV_ITEMS: {
 	/** Warna ikon saat sidebar dikecilkan (non-aktif). */
 	collapsedColor: string;
 }[] = [
-		{ to: '/app', labelKey: 'nav.dashboard', icon: LayoutDashboard, end: true, permission: 'dasbor', collapsedColor: 'text-yellow-500' },
-		{ to: '/app/penjualan', labelKey: 'nav.penjualan', icon: ShoppingCart, end: false, permission: 'penjualan', collapsedColor: 'text-blue-500' },
-		{ to: '/app/pembelian', labelKey: 'nav.pembelian', icon: Truck, end: false, permission: 'pembelian', collapsedColor: 'text-purple-500' },
-		{ to: '/app/kas-bank', labelKey: 'nav.kas_bank', icon: Landmark, end: false, permission: 'kas_bank', collapsedColor: 'text-orange-500' },
-		{ to: '/app/aset', labelKey: 'nav.aset', icon: Boxes, end: false, permission: 'aset', collapsedColor: 'text-yellow-500' },
-		{ to: '/app/biaya', labelKey: 'nav.biaya', icon: Receipt, end: false, permission: 'biaya', collapsedColor: 'text-red-500' },
-		{ to: '/app/kontak', labelKey: 'nav.kontak', icon: Users, end: false, permission: 'kontak', collapsedColor: 'text-blue-700' },
-		{ to: '/app/produk', labelKey: 'nav.produk', icon: Package, end: false, permission: 'produk', collapsedColor: 'text-sky-400' },
-		{ to: '/app/akun', labelKey: 'nav.akun', icon: BookOpen, end: false, permission: 'akun', collapsedColor: 'text-teal-500' },
-		{ to: '/app/jurnal', labelKey: 'nav.jurnal', icon: Wallet, end: false, permission: 'jurnal', collapsedColor: 'text-cyan-500' },
-		{ to: '/app/laporan', labelKey: 'nav.laporan', icon: FileBarChart, end: false, permission: 'laporan', collapsedColor: 'text-indigo-500' },
-		{ to: '/app/payroll', labelKey: 'nav.payroll', icon: CircleDollarSign, end: false, permission: 'payroll', collapsedColor: 'text-pink-500' },
-		{ to: '/app/karyawan', labelKey: 'nav.karyawan', icon: Users, end: false, permission: 'karyawan', karyawanOnly: true, collapsedColor: 'text-rose-500' },
-		{ to: '/app/pajak', labelKey: 'nav.pajak', icon: Percent, end: false, permission: 'pajak', collapsedColor: 'text-amber-500' },
-		{ to: '/app/pengaturan', labelKey: 'nav.pengaturan', icon: Settings, end: false, permission: 'pengaturan', collapsedColor: 'text-slate-500' },
-		{ to: '/app/pos', labelKey: 'nav.pos', icon: Store, end: false, permission: 'penjualan', collapsedColor: 'text-sky-500' },
-		{ to: '/app/chat', labelKey: 'nav.chat', icon: MessageCircle, end: false, permission: 'chat', collapsedColor: 'text-fuchsia-500' },
-	];
+	{ to: '/app', labelKey: 'nav.dashboard', icon: LayoutDashboard, end: true, permission: 'dasbor', collapsedColor: 'text-yellow-500' },
+	{ to: '/app/penjualan', labelKey: 'nav.penjualan', icon: ShoppingCart, end: false, permission: 'penjualan', collapsedColor: 'text-blue-500' },
+	{ to: '/app/pembelian', labelKey: 'nav.pembelian', icon: Truck, end: false, permission: 'pembelian', collapsedColor: 'text-purple-500' },
+	{ to: '/app/kas-bank', labelKey: 'nav.kas_bank', icon: Landmark, end: false, permission: 'kas_bank', collapsedColor: 'text-orange-500' },
+	{ to: '/app/aset', labelKey: 'nav.aset', icon: Boxes, end: false, permission: 'aset', collapsedColor: 'text-yellow-500' },
+	{ to: '/app/biaya', labelKey: 'nav.biaya', icon: Receipt, end: false, permission: 'biaya', collapsedColor: 'text-red-500' },
+	{ to: '/app/kontak', labelKey: 'nav.kontak', icon: Users, end: false, permission: 'kontak', collapsedColor: 'text-blue-700' },
+	{ to: '/app/produk', labelKey: 'nav.produk', icon: Package, end: false, permission: 'produk', collapsedColor: 'text-sky-400' },
+	{ to: '/app/akun', labelKey: 'nav.akun', icon: BookOpen, end: false, permission: 'akun', collapsedColor: 'text-teal-500' },
+	{ to: '/app/jurnal', labelKey: 'nav.jurnal', icon: Wallet, end: false, permission: 'jurnal', collapsedColor: 'text-cyan-500' },
+	{ to: '/app/laporan', labelKey: 'nav.laporan', icon: FileBarChart, end: false, permission: 'laporan', collapsedColor: 'text-indigo-500' },
+	{ to: '/app/payroll', labelKey: 'nav.payroll', icon: CircleDollarSign, end: false, permission: 'payroll', collapsedColor: 'text-pink-500' },
+	{ to: '/app/karyawan', labelKey: 'nav.karyawan', icon: Users, end: false, permission: 'karyawan', karyawanOnly: true, collapsedColor: 'text-rose-500' },
+	{ to: '/app/pajak', labelKey: 'nav.pajak', icon: Percent, end: false, permission: 'pajak', collapsedColor: 'text-amber-500' },
+	{ to: '/app/pengaturan', labelKey: 'nav.pengaturan', icon: Settings, end: false, permission: 'pengaturan', collapsedColor: 'text-slate-500' },
+	{ to: '/app/pos', labelKey: 'nav.pos', icon: Store, end: false, permission: 'penjualan', collapsedColor: 'text-sky-500' },
+	{ to: '/app/chat', labelKey: 'nav.chat', icon: MessageCircle, end: false, permission: 'chat', collapsedColor: 'text-fuchsia-500' },
+];
 
 interface AppSidebarProps {
 	companies: Company[];
@@ -75,6 +75,12 @@ interface AppSidebarProps {
 	/** True bila pengguna hanya boleh mengakses POS (role kasir). */
 	isKasir: boolean;
 	canAccessMenu: (permission: AppPermission) => boolean;
+}
+
+interface ActiveTooltip {
+	label: string;
+	top: number;
+	left: number;
 }
 
 export function AppSidebar({
@@ -94,6 +100,7 @@ export function AppSidebar({
 	const companyMenuRef = useRef<HTMLDivElement>(null);
 	const [managementOpen, setManagementOpen] = useState(false);
 	const managementMenuRef = useRef<HTMLDivElement>(null);
+	const [activeTooltip, setActiveTooltip] = useState<ActiveTooltip | null>(null);
 
 	useEffect(() => {
 		if (!companyOpen) return;
@@ -130,6 +137,24 @@ export function AppSidebar({
 			document.removeEventListener('keydown', onKey);
 		};
 	}, [managementOpen]);
+
+	useEffect(() => {
+		setActiveTooltip(null);
+	}, [location.pathname]);
+
+	const showTooltipForElement = (el: HTMLElement, label: string) => {
+		if (!collapsed) return;
+		const rect = el.getBoundingClientRect();
+		setActiveTooltip({
+			label,
+			top: rect.top + rect.height / 2,
+			left: rect.right + 12,
+		});
+	};
+
+	const hideTooltip = () => {
+		setActiveTooltip(null);
+	};
 
 	const visibleItems = isKaryawan
 		? NAV_ITEMS.filter(i => i.karyawanOnly)
@@ -265,8 +290,9 @@ export function AppSidebar({
 			) : null}
 
 			<nav
+				onScroll={hideTooltip}
 				className={cn(
-					'flex gap-1 overflow-x-auto px-3 pb-3 md:flex-1 md:flex-col md:overflow-y-auto md:overflow-x-visible [scrollbar-width:none] [&::-webkit-scrollbar]:hidden',
+					'flex gap-1 overflow-x-auto px-3 pb-3 md:flex-1 md:flex-col md:overflow-y-auto md:overflow-x-hidden [scrollbar-width:none] [&::-webkit-scrollbar]:hidden',
 					collapsed ? 'md:items-center md:px-2' : 'md:px-3',
 				)}
 			>
@@ -278,9 +304,13 @@ export function AppSidebar({
 							to={item.to}
 							end={item.end}
 							aria-label={label}
+							onMouseEnter={e => showTooltipForElement(e.currentTarget, label)}
+							onMouseLeave={hideTooltip}
+							onFocus={e => showTooltipForElement(e.currentTarget, label)}
+							onBlur={hideTooltip}
 							className={({ isActive }) =>
 								cn(
-									'group/nav relative flex items-center gap-2.5 whitespace-nowrap rounded-xl py-2.5 text-sm font-semibold transition-colors',
+									'relative flex items-center gap-2.5 whitespace-nowrap rounded-xl py-2.5 text-sm font-semibold transition-colors',
 									collapsed ? 'size-11 justify-center px-0' : 'px-3',
 									isActive
 										? 'bg-emerald-50 ring-2 ring-emerald-400'
@@ -298,20 +328,6 @@ export function AppSidebar({
 										strokeWidth={2}
 									/>
 									<span className={collapsed ? 'sr-only' : undefined}>{label}</span>
-									{collapsed ? (
-										<span
-											role="tooltip"
-											className={cn(
-												'pointer-events-none absolute left-full top-1/2 z-50 ml-3 -translate-y-1/2',
-												'hidden whitespace-nowrap rounded-lg px-3 py-1.5 text-xs font-medium tracking-wide shadow-md transition-all duration-150',
-												'bg-slate-900 text-white dark:bg-slate-100 dark:text-slate-900',
-												'[@media(hover:hover)]:group-hover/nav:block [@media(hover:hover)]:group-focus-visible/nav:block',
-											)}
-										>
-											{label}
-											<span className="absolute -left-1 top-1/2 -translate-y-1/2 border-y-4 border-r-4 border-y-transparent border-r-slate-900 dark:border-r-slate-100" />
-										</span>
-									) : null}
 								</>
 							)}
 						</NavLink>
@@ -324,12 +340,15 @@ export function AppSidebar({
 					<button
 						type="button"
 						onClick={() => setManagementOpen(open => !open)}
+						onMouseEnter={e => showTooltipForElement(e.currentTarget, t('nav.management'))}
+						onMouseLeave={hideTooltip}
+						onFocus={e => showTooltipForElement(e.currentTarget, t('nav.management'))}
+						onBlur={hideTooltip}
 						aria-haspopup="listbox"
 						aria-expanded={managementOpen}
 						aria-label={t('nav.management')}
-						title={t('nav.management')}
 						className={cn(
-							'group/mgmt relative flex items-center gap-2.5 rounded-xl py-2.5 text-sm font-semibold transition-colors',
+							'relative flex items-center gap-2.5 rounded-xl py-2.5 text-sm font-semibold transition-colors',
 							collapsed ? 'size-11 w-full justify-center px-0' : 'w-full px-3',
 							location.pathname.startsWith('/app/management')
 								? 'bg-emerald-50 ring-2 ring-emerald-400'
@@ -338,20 +357,6 @@ export function AppSidebar({
 					>
 						<ClipboardList className="size-4 shrink-0" strokeWidth={2} />
 						<span className={collapsed ? 'sr-only' : undefined}>{t('nav.management')}</span>
-						{collapsed ? (
-							<span
-								role="tooltip"
-								className={cn(
-									'pointer-events-none absolute left-full top-1/2 z-50 ml-3 -translate-y-1/2',
-									'hidden whitespace-nowrap rounded-lg px-3 py-1.5 text-xs font-medium tracking-wide shadow-md transition-all duration-150',
-									'bg-slate-900 text-white dark:bg-slate-100 dark:text-slate-900',
-									'[@media(hover:hover)]:group-hover/mgmt:block [@media(hover:hover)]:group-focus-visible/mgmt:block',
-								)}
-							>
-								{t('nav.management')}
-								<span className="absolute -left-1 top-1/2 -translate-y-1/2 border-y-4 border-r-4 border-y-transparent border-r-slate-900 dark:border-r-slate-100" />
-							</span>
-						) : null}
 					</button>
 					{managementOpen ? (
 						<ul
@@ -418,6 +423,20 @@ export function AppSidebar({
 					</div>
 				) : null}
 			</div>
+
+			{collapsed && activeTooltip ? (
+				<div
+					role="tooltip"
+					style={{
+						top: `${activeTooltip.top}px`,
+						left: `${activeTooltip.left}px`,
+					}}
+					className="pointer-events-none fixed z-[9999] -translate-y-1/2 whitespace-nowrap rounded-lg bg-slate-900 px-3 py-1.5 text-xs font-medium tracking-wide text-white shadow-md dark:bg-slate-100 dark:text-slate-900"
+				>
+					{activeTooltip.label}
+					<span className="absolute -left-1 top-1/2 -translate-y-1/2 border-y-4 border-r-4 border-y-transparent border-r-slate-900 dark:border-r-slate-100" />
+				</div>
+			) : null}
 		</aside>
 	);
 }
