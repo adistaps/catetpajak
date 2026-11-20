@@ -1,5 +1,5 @@
-# PocketBase untuk Railway. Root Directory service: /apps/pocketbase
-# Versi dipasang dari rilis resmi. Ganti lewat build arg PB_VERSION jika perlu.
+# PocketBase untuk Railway.
+# Versi dipasang dari rilis resmi.
 FROM alpine:3.20 AS fetch
 ARG PB_VERSION=0.40.6
 RUN apk add --no-cache curl unzip \
@@ -11,10 +11,10 @@ FROM alpine:3.20
 RUN apk add --no-cache ca-certificates tzdata
 WORKDIR /pb
 COPY --from=fetch /pb/pocketbase /pb/pocketbase
-COPY pb_migrations /pb/pb_migrations
-COPY pb_hooks /pb/pb_hooks
-COPY pb_import_hooks /pb/pb_import_hooks
-COPY entrypoint.sh /pb/entrypoint.sh
+COPY apps/pocketbase/pb_migrations /pb/pb_migrations
+COPY apps/pocketbase/pb_hooks /pb/pb_hooks
+COPY apps/pocketbase/pb_import_hooks /pb/pb_import_hooks
+COPY apps/pocketbase/entrypoint.sh /pb/entrypoint.sh
 RUN chmod +x /pb/entrypoint.sh
 EXPOSE 8090
 ENTRYPOINT ["/pb/entrypoint.sh"]
