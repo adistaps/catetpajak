@@ -1,0 +1,24 @@
+# /etc/systemd/system/pocketbase.service
+# Sesuaikan path jika user/folder situs berbeda.
+[Unit]
+Description=PocketBase (catetpajak)
+After=network.target
+
+[Service]
+User=catetpajak
+Group=catetpajak
+WorkingDirectory=/home/catetpajak/htdocs/catetpajak.com/apps/pocketbase
+EnvironmentFile=/home/catetpajak/pocketbase.env
+ExecStart=/home/catetpajak/bin/pocketbase serve \
+  --http=127.0.0.1:8090 \
+  --encryptionEnv=PB_ENCRYPTION_KEY \
+  --dir=/home/catetpajak/pb_data \
+  --migrationsDir=/home/catetpajak/htdocs/catetpajak.com/apps/pocketbase/pb_migrations \
+  --hooksDir=/home/catetpajak/htdocs/catetpajak.com/apps/pocketbase/pb_hooks \
+  --hooksWatch=false
+Restart=always
+RestartSec=3
+LimitNOFILE=4096
+
+[Install]
+WantedBy=multi-user.target

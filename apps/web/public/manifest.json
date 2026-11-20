@@ -1,0 +1,35 @@
+{
+	"name": "Catet Pajak",
+	"short_name": "Catet Pajak",
+	"description": "Aplikasi akuntansi & pajak multi-perusahaan dengan absensi, cuti, chat, dan panggilan.",
+	"start_url": "/app",
+	"scope": "/",
+	"display": "standalone",
+	"display_override": ["standalone"],
+	"orientation": "portrait",
+	"background_color": "#ffffff",
+	"theme_color": "#059669",
+	"categories": ["business", "finance", "productivity"],
+	"lang": "id",
+	"dir": "ltr",
+	"icons": [
+		{ "src": "https://images.hostinger.com/e004d724-5412-4405-a84c-c90ca3307fb3/0f8b2f91-be6a-4b1f-a18f-14cc0d046713.png", "sizes": "1024x1024", "type": "image/png", "purpose": "any" },
+		{ "src": "https://images.hostinger.com/e004d724-5412-4405-a84c-c90ca3307fb3/0f8b2f91-be6a-4b1f-a18f-14cc0d046713.png", "sizes": "1024x1024", "type": "image/png", "purpose": "maskable" }
+	],
+	"shortcuts": [
+		{
+			"name": "Absensi",
+			"short_name": "Absensi",
+			"description": "Catat kehadiran dan lihat riwayat absensi",
+			"url": "/app",
+			"icons": [{ "src": "https://images.hostinger.com/e004d724-5412-4405-a84c-c90ca3307fb3/0f8b2f91-be6a-4b1f-a18f-14cc0d046713.png", "sizes": "1024x1024", "type": "image/png" }]
+		},
+		{
+			"name": "Chat",
+			"short_name": "Chat",
+			"description": "Pesan langsung dan grup dengan anggota",
+			"url": "/app/chat",
+			"icons": [{ "src": "https://images.hostinger.com/e004d724-5412-4405-a84c-c90ca3307fb3/0f8b2f91-be6a-4b1f-a18f-14cc0d046713.png", "sizes": "1024x1024", "type": "image/png" }]
+		}
+	]
+}

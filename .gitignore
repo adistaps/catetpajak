@@ -1,0 +1,78 @@
+# ==============================================================================
+# 1. RAHASIA & KREDENSIAL (JANGAN PERNAH DI-COMMIT)
+# ==============================================================================
+.env
+.env.*
+!.env.example
+!**/.env.example
+*.pem
+*.key
+*.cert
+
+# ==============================================================================
+# 2. DATABASE & DATA LOKAL (POCKETBASE & IMPORT DATA)
+# ==============================================================================
+# Binary PocketBase lokal (Windows/Linux/Mac)
+apps/pocketbase/pocketbase
+apps/pocketbase/pocketbase.exe
+**/pocketbase
+**/pocketbase.exe
+
+# Database lokal & snapshot data
+apps/pocketbase/pb_data/
+apps/pocketbase/pb_snapshots/
+.local-data/
+**/pb_data/
+**/pb_snapshots/
+
+# File import & upload lokal pelanggan
+import-data/*
+!import-data/README.md
+**/uploads/
+
+# ==============================================================================
+# 3. DEPENDENSI & BUILD OUTPUT
+# ==============================================================================
+node_modules/
+dist/
+build/
+.cache/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Testing & Coverage
+coverage/
+playwright-report/
+test-results/
+**/ms-playwright/
+**/pw-browsers/
+
+# React Router & Vite
+.react-router/
+.vite/
+
+# ==============================================================================
+# 4. ARSIP & SISTEM SISA EXPORT HORIZONS
+# ==============================================================================
+vault/sessions/
+vault/temp/SESSION_JOURNAL.md
+export.zip
+app.tar.gz
+dist.tar.gz
+.*.upload-tmp
+.lh-tools/
+
+# ==============================================================================
+# 5. OS & IDE
+# ==============================================================================
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?

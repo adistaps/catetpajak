@@ -1,0 +1,721 @@
+/*
+  TEMPLATE STYLES: These styles are used as a base template.
+  AI is allowed to modify these styles as needed.
+*/
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer utilities {
+  .shadow-soft {
+    box-shadow: 0 8px 30px rgba(5, 122, 85, 0.1);
+  }
+  .shadow-soft-sm {
+    box-shadow: 0 4px 14px rgba(5, 122, 85, 0.07);
+  }
+  .brand-logo {
+    mix-blend-mode: multiply;
+    background-color: transparent;
+  }
+  .brand-logo-on-dark {
+    mix-blend-mode: screen;
+    filter: saturate(1.15) contrast(1.05);
+  }
+  .hero-glow {
+    background:
+      radial-gradient(ellipse 80% 60% at 70% 40%, rgba(16, 185, 129, 0.18), transparent 55%),
+      radial-gradient(ellipse 50% 40% at 20% 80%, rgba(110, 231, 183, 0.25), transparent 50%),
+      linear-gradient(180deg, #effcf6 0%, #ffffff 70%);
+  }
+  .marquee-track {
+    animation: marquee 28s linear infinite;
+  }
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+  .hero-float {
+    animation: hero-float 4.5s ease-in-out infinite;
+  }
+  .hero-float-delay {
+    animation: hero-float 5.2s ease-in-out infinite;
+    animation-delay: -1.4s;
+  }
+  .hero-float-slow {
+    animation: hero-float 6s ease-in-out infinite;
+    animation-delay: -2.2s;
+  }
+  @keyframes hero-float {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-12px) rotate(2deg); }
+  }
+  .hl-story-bar {
+    animation: hl-story-bar 5s linear forwards;
+  }
+  @keyframes hl-story-bar {
+    from { width: 0%; }
+    to { width: 100%; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .marquee-track {
+      animation: none;
+    }
+    .hero-float,
+    .hero-float-delay,
+    .hero-float-slow {
+      animation: none;
+    }
+    .hl-story-bar {
+      animation: none;
+      width: 100%;
+    }
+  }
+}
+
+/* Kartu beranda karyawan: pola geometris halus dengan palet hijau. */
+.ess-shift-hero {
+  background-color: #079669;
+  background-image:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.055) 25%, transparent 25%),
+    linear-gradient(225deg, rgba(255, 255, 255, 0.035) 25%, transparent 25%),
+    linear-gradient(135deg, #159e74 0%, #087a5b 100%);
+  background-size: 170px 170px, 170px 170px, 100% 100%;
+  background-position: 0 0, 85px 0, 0 0;
+}
+
+/* Badan kartu piutang: paksa transparan agar latar halaman (#eef6fb) terlihat.
+   Utility Tailwind sebelumnya kalah dari lapisan putih di elemen yang sama. */
+.receivable-status-card,
+.receivable-status-body {
+  background-color: #eef6fb !important;
+  background-image: none !important;
+  box-shadow: none !important;
+}
+
+.receivable-status-body-unpaid {
+  background-color: #fef3c7 !important;
+  background-image: none !important;
+}
+
+.receivable-status-body-overdue {
+  background-color: #fee2e2 !important;
+  background-image: none !important;
+}
+
+.receivable-status-body-paid {
+  background-color: #dcfce7 !important;
+  background-image: none !important;
+}
+
+.employee-directory-shell [class~="text-indigo-500"] {
+  color: #10b981;
+}
+
+.employee-directory-shell [class~="text-indigo-600"] {
+  color: #059669;
+}
+
+.employee-directory-shell [class~="text-indigo-700"] {
+  color: #047857;
+}
+
+.employee-directory-shell [class~="bg-indigo-50"] {
+  background-color: #ecfdf5;
+}
+
+.employee-directory-shell [class~="bg-indigo-100"] {
+  background-color: #d1fae5;
+}
+
+.employee-directory-shell [class~="bg-indigo-600"] {
+  background-color: #059669;
+}
+
+.employee-directory-shell [class~="bg-[#dce4ff]"] {
+  background-color: #d1fae5;
+}
+
+.employee-directory-shell [class~="text-[#3b5bdb]"] {
+  color: #047857;
+}
+
+.employee-directory-shell [class~="border-indigo-300"] {
+  border-color: #6ee7b7;
+}
+
+.employee-directory-shell [class~="ring-indigo-200"] {
+  --tw-ring-color: #a7f3d0;
+}
+
+.employee-directory-shell [class~="accent-indigo-600"] {
+  accent-color: #059669;
+}
+
+.employee-directory-shell [class~="hover:bg-indigo-50"]:hover {
+  background-color: #ecfdf5;
+}
+
+.employee-directory-shell [class~="hover:bg-indigo-700"]:hover {
+  background-color: #047857;
+}
+
+.employee-directory-shell [class~="hover:border-indigo-300"]:hover {
+  border-color: #6ee7b7;
+}
+
+button {
+  --button-green: hsl(var(--primary));
+  --button-green-hover: hsl(var(--primary) / 0.9);
+}
+
+body {
+  font-family: "Inter", system-ui, -apple-system, sans-serif;
+  overflow-x: clip;
+}
+
+@layer base {
+  :root {
+    --background: 150 30% 98%;
+    --foreground: 160 25% 10%;
+    --card: 0 0% 100%;
+    --card-foreground: 160 25% 10%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 160 25% 10%;
+    --primary: 160 84% 39%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 150 30% 96%;
+    --secondary-foreground: 160 25% 10%;
+    --muted: 150 25% 96%;
+    --muted-foreground: 155 12% 40%;
+    --accent: 150 70% 95%;
+    --accent-foreground: 160 84% 32%;
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 150 20% 88%;
+    --input: 150 20% 88%;
+    --ring: 160 84% 39%;
+    --radius: 0.75rem;
+    --sidebar-background: 0 0% 100%;
+    --sidebar-foreground: 160 25% 10%;
+    --sidebar-primary: 160 84% 39%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 150 70% 95%;
+    --sidebar-accent-foreground: 160 84% 32%;
+    --sidebar-border: 150 20% 90%;
+    --sidebar-ring: 160 84% 39%;
+  }
+  .dark {
+    --background: 160 25% 7%;
+    --foreground: 150 30% 98%;
+    --card: 160 20% 10%;
+    --card-foreground: 150 30% 98%;
+    --popover: 160 20% 10%;
+    --popover-foreground: 150 30% 98%;
+    --primary: 160 84% 46%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 160 18% 16%;
+    --secondary-foreground: 150 30% 98%;
+    --muted: 160 18% 16%;
+    --muted-foreground: 155 12% 65%;
+    --accent: 160 18% 16%;
+    --accent-foreground: 150 30% 98%;
+    --destructive: 0 62% 40%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 160 18% 18%;
+    --input: 160 18% 18%;
+    --ring: 160 84% 46%;
+    --sidebar-background: 160 20% 10%;
+    --sidebar-foreground: 150 30% 98%;
+    --sidebar-primary: 160 84% 46%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 160 18% 16%;
+    --sidebar-accent-foreground: 150 30% 98%;
+    --sidebar-border: 160 18% 18%;
+    --sidebar-ring: 160 84% 46%;
+  }
+}
+
+/* Header sticky tabel Invoice: latar opaque senada halaman, plus celah di
+   bawah header agar baris invoice paling atas tidak pernah tertutup header
+   saat tampilan awal maupun saat digulir. */
+.invoice-table thead tr,
+.invoice-table thead th {
+  background-color: hsl(150 30% 98%) !important;
+}
+
+.invoice-table tbody tr:first-child td {
+  padding-top: 0.875rem;
+}
+
+/* Chat karyawan mengikuti lebar wadah, bukan viewport. Dua kolom hanya
+   dipakai jika benar-benar ada ruang, supaya pesan tidak terpecah per huruf. */
+.chat-shell {
+  container-type: inline-size;
+  container-name: esschat;
+  width: 100%;
+  min-width: 0;
+}
+
+.chat-split {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 0.75rem;
+  width: 100%;
+  min-width: 0;
+  align-items: start;
+}
+
+.chat-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  width: 100%;
+  min-width: 0;
+}
+
+.chat-list.is-hidden {
+  display: none;
+}
+
+.chat-thread {
+  display: none;
+  box-sizing: border-box;
+  width: 100%;
+  min-width: 0;
+  height: min(68dvh, 740px);
+  min-height: 360px;
+  flex-direction: column;
+  overflow: hidden;
+  border-radius: 1rem;
+  border: 1px solid #e7ebf0;
+  background: #f7f8fa;
+}
+
+.chat-thread.is-open {
+  display: flex;
+}
+
+.chat-back {
+  display: flex;
+}
+
+.chat-list-scroll {
+  min-width: 0;
+  border-radius: 1rem;
+  border: 1px solid #e7ebf0;
+  background: #fff;
+  padding: 0.25rem;
+}
+
+.chat-bubble {
+  width: fit-content;
+  max-width: min(28rem, 88%);
+  min-width: min(4.5rem, 100%);
+  overflow-wrap: break-word;
+  word-break: normal;
+}
+
+.chat-bubble p {
+  overflow-wrap: break-word;
+  word-break: normal;
+  white-space: pre-wrap;
+}
+
+.chat-thread audio,
+.chat-bubble audio {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+}
+
+@container esschat (max-width: 679px) {
+  .chat-hide-narrow {
+    display: none;
+  }
+
+  .chat-thread.is-open {
+    height: calc(100dvh - 13.25rem);
+    min-height: 280px;
+  }
+}
+
+@container esschat (min-width: 680px) {
+  .chat-split {
+    grid-template-columns: minmax(240px, 300px) minmax(320px, 1fr);
+    gap: 1.25rem;
+    align-items: stretch;
+  }
+
+  .chat-list.is-hidden {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .chat-thread {
+    display: flex;
+    min-width: 320px;
+    height: min(72dvh, 760px);
+  }
+
+  .chat-back {
+    display: none;
+  }
+
+  .chat-list-scroll {
+    max-height: min(62dvh, 640px);
+  }
+}
+
+/* Tampilan chat gelap; aturan dibatasi ke chat karyawan agar modul lain tetap sama. */
+.chat-shell {
+  --chat-background: #111414;
+  --chat-panel: #191e1c;
+  --chat-line: #333a36;
+  --chat-text: #f2f5f3;
+  --chat-muted: #a4ada8;
+  background: var(--chat-background);
+  color: var(--chat-text);
+  border-radius: 1.25rem;
+  overflow: hidden;
+  min-height: min(72dvh, 760px);
+}
+
+.chat-shell .chat-split {
+  gap: 0;
+  align-items: stretch;
+}
+
+.chat-shell .chat-list {
+  gap: 0;
+  padding: 1.5rem 1.25rem 0.75rem;
+  background: var(--chat-background);
+}
+
+.chat-list-header {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1.25rem;
+}
+
+.chat-list-header h2 {
+  font-size: clamp(2rem, 5vw, 2.5rem);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.045em;
+}
+
+.chat-company-name {
+  color: var(--chat-muted);
+  font-size: 0.75rem;
+  font-weight: 600;
+  margin-bottom: 0.45rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.chat-new-button {
+  display: flex;
+  width: 2.75rem;
+  height: 2.75rem;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: #f1f5f2;
+  color: #121815;
+  transition: background-color 160ms ease;
+}
+
+.chat-new-button:hover { background: #c8e9d4; }
+.chat-new-button:disabled { opacity: 0.4; cursor: not-allowed; }
+.chat-search { margin-bottom: 1rem; }
+.chat-filters { margin-bottom: 0.75rem; scrollbar-width: none; }
+.chat-filters::-webkit-scrollbar { display: none; }
+
+.chat-shell .chat-list-scroll {
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+}
+
+.chat-conversation {
+  display: flex;
+  width: 100%;
+  min-width: 0;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.3rem 0;
+  text-align: left;
+  transition: background-color 160ms ease;
+}
+.chat-conversation:hover, .chat-conversation.is-active { background: #202724; }
+.chat-conversation:focus-visible, .chat-new-button:focus-visible { outline: 2px solid #80d8a6; outline-offset: -2px; }
+.chat-avatar {
+  display: flex;
+  width: 3.5rem;
+  height: 3.5rem;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+.chat-group-avatar { background: #3b4843; color: #d6e4dc; }
+.chat-row-details {
+  display: flex;
+  min-width: 0;
+  min-height: 5.25rem;
+  flex: 1;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.25rem;
+  padding: 0.8rem 0;
+  border-bottom: 1px solid var(--chat-line);
+}
+.chat-row-main { display: flex; min-width: 0; align-items: center; gap: 0.75rem; }
+.chat-row-name { overflow: hidden; flex: 1; color: var(--chat-text); font-size: 1rem; font-weight: 650; line-height: 1.3; text-overflow: ellipsis; white-space: nowrap; }
+.chat-row-preview { overflow: hidden; flex: 1; color: var(--chat-muted); font-size: 0.875rem; line-height: 1.4; text-overflow: ellipsis; white-space: nowrap; }
+.chat-row-time { flex: none; color: var(--chat-muted); font-size: 0.75rem; white-space: nowrap; }
+.chat-row-time.has-unread { color: #62d394; }
+.chat-row-label { display: inline-flex; width: fit-content; align-items: center; gap: 0.25rem; border-radius: 0.3rem; background: #3d343c; color: #e6bfd1; padding: 0.1rem 0.4rem; font-size: 0.65rem; font-weight: 600; }
+.chat-unread { display: flex; min-width: 1.4rem; height: 1.4rem; flex: none; align-items: center; justify-content: center; border-radius: 999px; background: #48c77e; color: #102b19; padding: 0 0.3rem; font-size: 0.7rem; font-weight: 700; }
+
+.chat-shell .chat-thread {
+  border: 0;
+  border-radius: 0;
+  background: var(--chat-panel);
+}
+.chat-thread-content { background: var(--chat-panel); color: var(--chat-text); }
+.chat-thread-header, .chat-composer { background: #202623; border-color: var(--chat-line); }
+.chat-input-box { background: #303733; border-color: #3e4a43; }
+.chat-empty-icon { border-color: #3e4a43; background: #27312b; }
+.chat-shell .chat-bubble audio { color-scheme: light; }
+.chat-shell .chat-thread-content .chat-input-box > button[title="Rekam pesan suara"] { color: #b4d5c2; }
+.chat-shell .chat-thread-content .chat-input-box > button[title="Rekam pesan suara"]:hover { background: #39443e; }
+.chat-shell .chat-bubble > a:not(:has(img)),
+.chat-shell .chat-bubble > div:has(audio) { color: #24342a; }
+.chat-shell .chat-thread-header .text-amber-700 { color: #f2c57d; }
+.chat-shell .chat-thread-header .text-emerald-600 { color: #7bd99f; }
+.chat-dialogs {
+  --background: 155 10% 11%;
+  --foreground: 150 12% 95%;
+  --card: 155 10% 14%;
+  --border: 150 9% 25%;
+  --input: 150 9% 25%;
+  --muted-foreground: 150 7% 70%;
+  --secondary: 150 9% 21%;
+  --accent: 150 26% 25%;
+  --accent-foreground: 150 35% 90%;
+  color: hsl(var(--foreground));
+}
+
+@container esschat (min-width: 680px) {
+  .chat-shell .chat-split { grid-template-columns: minmax(280px, 38%) minmax(0, 1fr); }
+  .chat-shell .chat-list { border-right: 1px solid var(--chat-line); }
+  .chat-shell .chat-thread { min-width: 0; height: min(72dvh, 760px); }
+  .chat-shell .chat-list-scroll { max-height: min(51dvh, 540px); }
+}
+
+@container esschat (max-width: 679px) {
+  .chat-shell .chat-list { min-height: min(65dvh, 650px); }
+  .chat-shell .chat-thread.is-open { height: calc(100dvh - 13.25rem); min-height: 320px; }
+}
+
+/* Hilangkan pemisah hanya pada struktur tabel Slip Gaji, termasuk header. */
+section[aria-label="Slip gaji"] table,
+section[aria-label="Slip gaji"] table > thead,
+section[aria-label="Slip gaji"] table > tbody,
+section[aria-label="Slip gaji"] table > tfoot,
+section[aria-label="Slip gaji"] table > thead > tr,
+section[aria-label="Slip gaji"] table > tbody > tr,
+section[aria-label="Slip gaji"] table > tfoot > tr,
+section[aria-label="Slip gaji"] table > thead > tr > th,
+section[aria-label="Slip gaji"] table > tbody > tr > td,
+section[aria-label="Slip gaji"] table > tfoot > tr > td {
+  border: 0 !important;
+  box-shadow: none !important;
+}
+
+/* Garis pemisah hanya di bawah header tabel Slip Gaji. */
+section[aria-label="Slip gaji"] table > thead > tr > th {
+  border-bottom: 1px solid #e2e8f0 !important;
+}
+
+/* Hanya lapisan struktural tabel Pinjaman yang transparan; status dan tombol tetap berwarna. */
+.loan-table-container,
+.loan-table-container > div,
+.loan-table-container table,
+.loan-table-container thead,
+.loan-table-container tbody,
+.loan-table-container tr,
+.loan-table-container th,
+.loan-table-container td {
+  background-color: transparent !important;
+  background-image: none !important;
+  box-shadow: none !important;
+}
+
+/* Tampilan lembar laporan keuangan: latar transparan menyatu dengan halaman.
+   Pemisah halus, judul/subtotal tebal, dan kolom angka rata kanan tetap dipertahankan.
+   Tidak memengaruhi tabel modul lain. */
+.report-print-root {
+  background: transparent;
+  color: #374151;
+  border: 0;
+  border-radius: 0;
+  overflow: visible;
+}
+.report-print-root table,
+.report-print-root thead,
+.report-print-root tbody,
+.report-print-root tfoot,
+.report-print-root tr,
+.report-print-root th,
+.report-print-root td {
+  background-color: transparent;
+  background-image: none;
+  border-left: 0 !important;
+  border-right: 0 !important;
+}
+.report-print-root section,
+.report-print-root > section,
+.report-print-root > div,
+.report-print-root > div > section,
+.report-print-root > div > div {
+  box-shadow: none;
+}
+/* Hilangkan latar putih/abu pada pembungkus dan panel laporan agar menyatu
+   dengan halaman; border, pemisah baris, dan kontrol tetap dipertahankan. */
+.report-print-root > .overflow-hidden,
+.report-print-root section.rounded-2xl,
+.report-print-root section.rounded-xl,
+.report-print-root section[class*="rounded"],
+.report-print-root div.rounded-2xl.border,
+.report-print-root div[class*="rounded-xl"][class*="border"],
+.report-print-root [class*="bg-white"],
+.report-print-root [class*="bg-slate-50"],
+.report-print-root [class*="bg-slate-100"],
+.report-print-root [class*="bg-card"],
+.report-print-root [class*="bg-secondary"],
+.report-print-root [class*="bg-muted"] {
+  background-color: transparent;
+  background-image: none;
+}
+/* Hilangkan batas panel dan pemisah struktural laporan, tanpa mengubah
+   border atau indikator fokus pada tombol, input, dan kontrol lainnya. */
+.report-print-root > :is(div, section),
+.report-print-root > div > :is(div, section, header, footer),
+.report-print-root section[class*="rounded"],
+.report-print-root div[class*="rounded"][class*="border"],
+.report-print-root section > :is(header, footer, h2) {
+  border: 0 !important;
+  outline: 0;
+  box-shadow: none;
+}
+.report-print-root :is(h2, header)[class*="bg-secondary"],
+.report-print-root :is(h2, header)[class*="bg-slate-50"],
+.report-print-root > div > div[class*="bg-slate-50"] {
+  background-color: transparent;
+}
+.report-print-root table {
+  border-collapse: collapse;
+  color: #374151;
+}
+/* Hilangkan semua garis batas (horizontal maupun vertikal) pada tabel dan
+   baris laporan keuangan; isi, susunan, keterbacaan, dan fungsi tetap. */
+.report-print-root table tr,
+.report-print-root table thead,
+.report-print-root table tbody,
+.report-print-root table tfoot,
+.report-print-root table th,
+.report-print-root table td,
+.report-print-root table thead tr,
+.report-print-root table tbody tr,
+.report-print-root table tfoot tr,
+.report-print-root table thead tr th,
+.report-print-root table tbody tr td,
+.report-print-root table tfoot tr td {
+  border: 0 !important;
+  border-top: 0 !important;
+  border-bottom: 0 !important;
+  border-left: 0 !important;
+  border-right: 0 !important;
+}
+.report-print-root table th {
+  color: #5b6471;
+  font-weight: 600;
+  text-transform: none;
+  letter-spacing: normal;
+}
+.report-print-root table td {
+  vertical-align: middle;
+}
+.report-print-root table tbody td[colspan] {
+  font-style: normal;
+}
+.report-print-root table tbody td[colspan] + td,
+.report-print-root table tfoot td {
+  font-weight: 700;
+}
+.report-print-root table [class*="text-right"] {
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+.financial-report-section { width: 100%; }
+.financial-report-heading {
+  padding: 16px 20px;
+}
+.financial-report-heading h2 { color: #374151; font-size: 15px; font-weight: 700; }
+.financial-table-wrap { width: 100%; overflow-x: auto; }
+.financial-table { width: 100%; min-width: 540px; font-size: 14px; line-height: 1.4; }
+.financial-table th { padding: 12px 20px; text-align: left; font-size: 12px; }
+.financial-table th:last-child { width: 220px; text-align: right; }
+.financial-table td { padding: 11px 20px; }
+.financial-table .financial-amount { text-align: right; white-space: nowrap; font-variant-numeric: tabular-nums; }
+.financial-table .financial-row-strong,
+.financial-table .financial-row-group { font-weight: 700; }
+.financial-group-toggle { display: inline-flex; align-items: center; gap: 7px; text-align: left; }
+.financial-group-toggle:hover { color: #087a5b; }
+.financial-group-toggle:focus-visible { outline: 2px solid #059669; outline-offset: 3px; }
+.financial-group-toggle svg { width: 15px; height: 15px; flex: none; color: #818892; }
+.financial-report-note { padding: 14px 20px; color: #6b7280; font-size: 11px; line-height: 1.6; }
+.report-print-root .financial-row-group { font-weight: 700; }
+@media (max-width: 640px) {
+  .financial-table { min-width: 480px; }
+  .financial-report-heading { padding: 14px 16px; }
+}
+
+/* Area Pajak menyatu dengan halaman; kontrol tetap berwarna agar mudah dikenali. */
+.pajak-clean :is(section, header, footer, nav, div, table, thead, tbody, tfoot, tr, th, td, span),
+.pajak-clean nav a {
+  background-color: transparent !important;
+  background-image: none !important;
+  box-shadow: none;
+}
+
+/* Hilangkan bingkai kotak pada bagian dan daftar Pajak, tanpa mengubah
+   garis pemisah, indikator menu aktif, atau batas kontrol formulir dan tombol. */
+.pajak-clean :is(section, div, header, footer, nav)[class~="border"] {
+  border: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+}
+
+/* Kolom terkunci tetap opak senada halaman agar isi tabel tidak bertumpuk saat digulir. */
+.pajak-clean table :is(th.sticky, td.sticky) {
+  background-color: hsl(var(--background)) !important;
+}
+
+#run-period:focus,
+#run-paydate:focus,
+#run-cash:focus,
+#run-desc:focus {
+  border-color: #059669;
+  --tw-ring-color: #d1fae5;
+}
