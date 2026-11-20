@@ -420,6 +420,39 @@ for (const { colName, id, deferred } of deferredAll) {
 	}
 }
 
+// PocketBase mengisi created/updated dengan waktu import. Jika server dalam MODE IMPORT
+// (hook pb_import_hooks aktif), tanggal asli dipulihkan otomatis lewat API khusus.
+let timestampsRestored = false;
+if (!DRY) {
+	const ping = await fetch(`${PB_URL}/api/import-support/ping`, { headers: { Authorization: pb.authStore.token } }).catch(() => null);
+	if (ping && ping.ok) {
+		const rowsToRestore = [];
+		for (const colName of order) {
+			for (const id of created.get(colName)) {
+				const rec = data.get(colName)?.get(id);
+				if (rec && (rec.created || rec.updated)) rowsToRestore.push({ c: colName, id, created: rec.created, updated: rec.updated });
+			}
+		}
+		let restored = 0;
+		for (let i = 0; i < rowsToRestore.length; i += 150) {
+			const res = await withRetry(async () => {
+				const r = await fetch(`${PB_URL}/api/import-support/restore-timestamps`, {
+					method: 'POST',
+					headers: { Authorization: pb.authStore.token, 'Content-Type': 'application/json' },
+					body: JSON.stringify({ rows: rowsToRestore.slice(i, i + 150) }),
+				});
+				if (!r.ok) throw Object.assign(new Error(`HTTP ${r.status}`), { status: r.status });
+				return r.json();
+			}).catch((e) => ({ updated: 0, error: e.message }));
+			restored += res.updated || 0;
+			if (res.error) report.failed.push({ collection: '(tanggal)', id: `batch ${i}`, error: res.error });
+		}
+		timestampsRestored = restored > 0;
+		report.timestampsRestored = restored;
+		log(`  Tanggal asli dipulihkan : ${restored} record (otomatis)`);
+	}
+}
+
 // verifikasi jumlah record di PocketBase vs yang berhasil dibuat
 if (!DRY) {
 	for (const colName of order) {
@@ -447,7 +480,7 @@ log(`  User perlu reset sandi  : ${report.usersNeedPasswordReset}`);
 log(`  Data bawaan diganti     : ${report.seedReplaced.length}`);
 if (report.countMismatch.length) log(`  Selisih jumlah (info)   : ${report.countMismatch.map((m) => `${m.collection} (${m.inPocketBase} vs ${m.imported})`).join(', ')}`);
 log(`  Laporan                 : ${reportPath}\n`);
-if (!DRY) {
+if (!DRY && !timestampsRestored) {
 	log('LANGKAH BERIKUTNYA (wajib): PocketBase mengisi tanggal dibuat/diubah dengan waktu import.');
 	log('Hentikan PocketBase, lalu jalankan: node scripts/restore-timestamps.mjs <folder-pb_data> <folder-data>');
 	log('Tanpa ini masa uji coba 30 hari semua user dihitung ulang dari hari ini.\n');

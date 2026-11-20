@@ -13,10 +13,8 @@
 # 2. DATABASE & DATA LOKAL (POCKETBASE & IMPORT DATA)
 # ==============================================================================
 # Binary PocketBase lokal (Windows/Linux/Mac)
-apps/pocketbase/pocketbase
-apps/pocketbase/pocketbase.exe
-**/pocketbase
-**/pocketbase.exe
+/apps/pocketbase/pocketbase
+/apps/pocketbase/pocketbase.exe
 
 # Database lokal & snapshot data
 apps/pocketbase/pb_data/

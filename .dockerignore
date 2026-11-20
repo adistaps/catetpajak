@@ -1,0 +1,13 @@
+.git
+**/node_modules
+dist
+.react-router
+import-data
+.local-data
+**/pb_data
+.env
+**/.env
+**/.env.*
+!**/.env.example
+*.log
+vault

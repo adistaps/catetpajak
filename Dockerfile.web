@@ -1,0 +1,17 @@
+# Aplikasi web untuk Railway. Root Directory service: / (akar repo)
+# Di Railway isi variabel: RAILWAY_DOCKERFILE_PATH=Dockerfile.web
+FROM node:22-slim
+WORKDIR /app
+
+# lapisan dependensi (cache terpisah dari kode)
+COPY package.json package-lock.json ./
+COPY apps/web/package.json apps/web/package.json
+COPY apps/pocketbase/package.json apps/pocketbase/package.json
+RUN npm ci --no-audit --no-fund
+
+COPY . .
+RUN npm run build
+
+ENV NODE_ENV=production
+EXPOSE 3000
+CMD ["npm", "run", "start", "--prefix", "apps/web"]

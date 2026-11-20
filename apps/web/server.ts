@@ -59,18 +59,39 @@ const LOOPBACK = new Set(['127.0.0.1', '::1', '::ffff:127.0.0.1']);
  * Hanya jika koneksi datang dari proxy lokal (Nginx CloudPanel) IP diambil dari header yang ditulis proxy itu:
  * entri TERAKHIR `X-Forwarded-For` (yang ditambahkan Nginx sendiri), lalu `X-Real-IP` sebagai cadangan.
  */
+const TRUST_PROXY = process.env.TRUST_PROXY === 'true';
+// Header mana yang dipercaya saat di belakang proxy: 'x-real-ip' | 'xff-last' | 'xff-first'.
+// Nginx lokal (VPS): 'xff-last'. Railway (TRUST_PROXY=true): 'x-real-ip' (periksa di log PocketBase).
+const IP_STRATEGY = process.env.TRUSTED_IP_HEADER ?? (TRUST_PROXY ? 'x-real-ip' : 'xff-last');
+
+function headerText(request: IncomingMessage, name: string): string | undefined {
+	const value = request.headers[name];
+
+	return typeof value === 'string' ? value : undefined;
+}
+
+/**
+ * IP klien yang tidak bisa dipalsukan. Header dari klien TIDAK dipercaya kecuali koneksi datang dari proxy
+ * tepercaya: proxy lokal (loopback, mis. Nginx CloudPanel) atau semua koneksi jika TRUST_PROXY=true
+ * (mis. Railway, yang menyambungkan lewat jaringan internal).
+ */
 function resolveClientIp(request: IncomingMessage): string {
 	const remote = request.socket.remoteAddress ?? '';
 
-	if (!LOOPBACK.has(remote)) {
+	if (!TRUST_PROXY && !LOOPBACK.has(remote)) {
 		return remote;
 	}
 
-	const forwardedFor = request.headers['x-forwarded-for'];
-	const lastForwarded = typeof forwardedFor === 'string' ? forwardedFor.split(',').pop()?.trim() : undefined;
-	const realIp = request.headers['x-real-ip'];
+	const chain = (headerText(request, 'x-forwarded-for') ?? '')
+		.split(',')
+		.map((part) => part.trim())
+		.filter(Boolean);
+	const realIp = headerText(request, 'x-real-ip')?.trim();
+	const last = chain[chain.length - 1];
+	const first = chain[0];
+	const ordered = IP_STRATEGY === 'x-real-ip' ? [realIp, last, first] : IP_STRATEGY === 'xff-first' ? [first, realIp] : [last, realIp];
 
-	return lastForwarded || (typeof realIp === 'string' && realIp.trim()) || remote;
+	return ordered.find(Boolean) || remote;
 }
 
 // Aplikasi (rate limiter) membaca `X-Real-IP`. Tulis ulang dengan IP yang sudah diverifikasi,
